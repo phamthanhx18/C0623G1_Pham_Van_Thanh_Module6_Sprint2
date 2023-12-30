@@ -1,0 +1,88 @@
+a {
+    color: #A82216 !important;
+    text-decoration: unset;
+}
+.nav li {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px;
+}
+.nav li a.active {
+    border-bottom: 3px #A82216 solid;
+}
+.icon>a>i {
+    font-size: 20px;
+    padding: 10px 15px;
+}
+#banner-home {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), url(/images/man-choosing-foot-wear-mens-store.jpg), lightgray 50% / cover no-repeat;
+    background-position: 50% 50%;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+}
+.banner-content {
+    color: #FFF;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0 auto;
+}
+#banner-home .row {
+    min-height: 600px;
+}
+.btn.btn-primary {
+    background: #A82216;
+    border: 1px solid #A82216;
+    border-radius: 0;
+    color: #fff !important;
+}
+.card-img-overlay {
+    border: 1px solid #FFF;
+    background: rgba(217, 217, 217, 0.30);
+    margin: 10px;
+}
+.card.text-bg-dark {
+    border: 0;
+}
+.sort .form-select, .sort .form-select:focus {
+    border: 0;
+    box-shadow: unset;
+}
+p.category {
+    margin: 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: .05em;
+    color: #AEADAE;
+    opacity: unset;
+}
+#flash-sale h4 {
+    font-size: 20px;
+}
+p.description {
+    color: #A5A5A5;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.card {
+    border: 0;
+    border-radius: 0;
+}
+.card-img-top {
+    border-radius: 0;
+}
+.card-body {
+    background: #f5f5f5;
+}
+.price {
+    color: #979797;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: line-through;
+}
