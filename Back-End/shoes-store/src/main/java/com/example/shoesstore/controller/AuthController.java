@@ -6,6 +6,9 @@ import com.example.shoesstore.model.account.MyUserDetail;
 import com.example.shoesstore.security.jwt.JwtUtils;
 import com.example.shoesstore.service.auth.IAccountService;
 import com.example.shoesstore.service.auth.impl.MyUserDetailService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +40,21 @@ public class AuthController {
      * @date: 12/12/2023
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Login login) {
+    public ResponseEntity<?> login(@RequestBody Login login, HttpServletResponse response) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             MyUserDetail myUserDetail = (MyUserDetail) authentication.getPrincipal();
             String jwt = jwtProvider.createToken(myUserDetail);
-            return new ResponseEntity<>(jwt, HttpStatus.OK);
+            // Tạo cookie
+            String cookieValue = "jwt=" + jwt + "; HttpOnly; Secure; Path=/; Max-Age=604800; SameSite=Strict"; // 604800 giây = 7 ngày
+            response.setHeader("Set-Cookie", cookieValue);
+            return ResponseEntity.ok("Đăng nhập thành công");
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>("Thông tin đăng nhập không chính xác.", HttpStatus.UNAUTHORIZED);
         }
     }
-    @PostMapping("/test")
+    @GetMapping("/check-auth")
     public ResponseEntity<?> test() {
             return new ResponseEntity<>("OKE", HttpStatus.OK);
     }

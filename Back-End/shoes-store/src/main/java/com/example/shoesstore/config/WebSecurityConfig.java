@@ -104,7 +104,7 @@ public class WebSecurityConfig {
                                         "/api/product",
                                         "/api/product/{id}"
                                 ).permitAll()
-                                .requestMatchers("/api/test").hasRole("MANAGER")
+                                .requestMatchers("/api/check-auth").authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
