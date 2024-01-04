@@ -101,8 +101,12 @@ public class WebSecurityConfig {
                                 .requestMatchers(
                                         "/api/login",
                                         "/api/category",
+                                        "/api/size",
+                                        "/api/color",
                                         "/api/product",
-                                        "/api/product/{id}"
+                                        "/api/product/{id}",
+                                        "/api/product/get-size/{idVariant}",
+                                        "/api/product/get-price-filter"
                                 ).permitAll()
                                 .requestMatchers("/api/check-auth").authenticated()
                 )

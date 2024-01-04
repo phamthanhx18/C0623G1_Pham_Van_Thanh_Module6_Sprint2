@@ -1,4 +1,4 @@
-package com.example.shoesstore.service.auth.impl;
+package com.example.shoesstore.service.product.impl;
 
 import com.example.shoesstore.model.product.Category;
 import com.example.shoesstore.repository.product.ICategoryRepository;
