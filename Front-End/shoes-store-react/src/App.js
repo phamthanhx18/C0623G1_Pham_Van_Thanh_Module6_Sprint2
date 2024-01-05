@@ -9,6 +9,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import store from "./redux/Store";
+import DashboardProduct from "./pages/dashboard/Product/DashboardProduct";
+import DashboardProductAdd from "./pages/dashboard/Product/DashboardProductAdd";
+import './firebaseConfig';
 
 function App() {
     return (
@@ -19,6 +22,8 @@ function App() {
                     <Route path="/login" element={<LoginPage/>}></Route>
                     <Route path="/product" element={<Product/>}></Route>
                     <Route path="/dashboard" element={<PrivateRoute Component={Dashboard} />} />
+                    <Route path="/dashboard/products" element={<PrivateRoute Component={DashboardProduct} />} />
+                    <Route path="/dashboard/products/add" element={<PrivateRoute Component={DashboardProductAdd} />} />
                     <Route path="/product/:id" element={<ProductDetail/>}></Route>
                 </Routes>
             </BrowserRouter>

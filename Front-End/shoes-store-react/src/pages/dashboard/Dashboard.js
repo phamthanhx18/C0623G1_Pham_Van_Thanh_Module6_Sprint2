@@ -1,13 +1,12 @@
 import React from 'react';
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Layout from "./Layout";
 
 function Dashboard() {
     return (
         <>
-            <Header/>
-            Đây là trang dashboard
-            <Footer/>
+            <Layout>
+                        Tổng quan
+            </Layout>
         </>
     );
 }

@@ -7,7 +7,7 @@ function SidebarFilter({ onFilterChange }) {
     const [sizes, setSizes] = useState([]);
     const [priceRange, setPriceRange] = useState({
         minPrice: 0,
-        maxPrice: 1000 // Giả sử 1000 là giá cao nhất
+        maxPrice: 699000 // Giả sử 1000 là giá cao nhất
     });
 
     const [filter, setFilter] = useState({
@@ -15,7 +15,7 @@ function SidebarFilter({ onFilterChange }) {
         color: [],
         size: [],
         priceFilterMin: 0,
-        priceFilterMax: 1000
+        priceFilterMax: 699000
     });
 
     const getAllCategories = async () => {
@@ -74,7 +74,7 @@ function SidebarFilter({ onFilterChange }) {
     }, []);
 
     useEffect(() => {
-        onFilterChange(filter); // Gọi hàm callback mỗi khi filter thay đổi
+        onFilterChange(filter);
     }, [filter]);
 
     const handleCategoryChange = (selectedItem) => {

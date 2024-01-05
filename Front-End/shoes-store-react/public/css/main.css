@@ -180,3 +180,29 @@ span.percent {
     display: flex;
     justify-content: space-between;
 }
+.list-group-item {
+    padding-left: 0;
+}
+li.list-group-item a.active {
+    font-weight: 700;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #A82216;
+    color: #fff !important;
+}
+.account {
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+.account .avatar img {
+    width: 50%;
+    margin-bottom: 20px;
+}
+.table>tbody {
+     vertical-align: unset;
+}
+.ck-editor__editable
+{
+    min-height: 200px !important;
+    max-height: 400px !important;
+}
