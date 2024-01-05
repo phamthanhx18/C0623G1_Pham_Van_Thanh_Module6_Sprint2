@@ -104,10 +104,14 @@ public class WebSecurityConfig {
                                         "/api/size",
                                         "/api/color",
                                         "/api/product",
+                                        "/api/product/all",
                                         "/api/product/{id}",
+                                        "/api/product/filter",
                                         "/api/product/get-size/{idVariant}",
-                                        "/api/product/get-price-filter"
-                                ).permitAll()
+                                        "/api/product/get-price-filter",
+                                        "/api/customer"
+                                        ).permitAll()
+                                .requestMatchers("/api/product/add").hasRole("MANAGER")
                                 .requestMatchers("/api/check-auth").authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

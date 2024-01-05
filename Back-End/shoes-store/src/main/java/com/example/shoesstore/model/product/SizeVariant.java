@@ -1,9 +1,6 @@
 package com.example.shoesstore.model.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,9 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SizeVariant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne(targetEntity = Size.class)
     private Size size;
-    @Id
     @ManyToOne(targetEntity = ProductVariant.class)
     private ProductVariant productVariant;
 }
