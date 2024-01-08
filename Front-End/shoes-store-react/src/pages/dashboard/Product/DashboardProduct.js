@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Layout from "../Layout";
 import axios from "axios";
 import {Link} from "react-router-dom";
+
 function DashboardProduct() {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
@@ -10,7 +11,6 @@ function DashboardProduct() {
 
     const getProducts = async () => {
         let res = await axios.get("http://localhost:8080/api/product/all");
-        console.log(res.data.content);
         setProducts(res.data.content);
     }
     useEffect(() => {
@@ -23,10 +23,10 @@ function DashboardProduct() {
         });
     }
     const handleEdit = (product) => {
-        
+
     };
     const handleDelete = (id) => {
-        
+
     };
     return (
         <>
@@ -37,8 +37,10 @@ function DashboardProduct() {
                         Trang quản lý các sản phẩm tại cửa hàng
                     </p>
                     <hr width={'100%'}/>
-                    <p><Link className="btn btn-primary" to={"/dashboard/products/add"}><i
-                        className="fa-solid fa-file-circle-plus"></i> Thêm sản phẩm mới</Link></p>
+                    <p>
+                        <Link className="btn btn-primary me-2" to={"/dashboard/products/add"}><i
+                            className="fa-solid fa-file-circle-plus"></i> Thêm sản phẩm mới</Link>
+                    </p>
                     <table className="table">
                         <thead>
                         <tr>
@@ -54,16 +56,20 @@ function DashboardProduct() {
                         <tbody>
                         {products.map((product, index) => (
                             <tr key={product.id}>
-                                <td>{index + 1 + (size * page) }</td>
+                                <td>{index + 1 + (size * page)}</td>
                                 <td><img src={product.productAvatar} alt={product.productName} width={50}/></td>
                                 <td>{product.productName}</td>
                                 <td>{formatCurrency(product.price)}</td>
                                 <td>{formatCurrency(product.priceSale)}</td>
                                 <td>{product.category.name}</td>
                                 <td>
-                                    <button className="btn btn-success me-2" onClick={() => handleEdit(product)}>Chi tiết</button>
-                                    <button className="btn btn-warning me-2" onClick={() => handleEdit(product)}>Sửa</button>
-                                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Xóa</button>
+                                    <Link to={`/dashboard/products/${product.id}`}
+                                          className="btn btn-success me-2 text-white"
+                                          onClick={() => handleEdit(product)}>Biến thể</Link>
+                                    <button className="btn btn-warning me-2" onClick={() => handleEdit(product)}>Sửa
+                                    </button>
+                                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Xóa
+                                    </button>
                                 </td>
                             </tr>
                         ))}

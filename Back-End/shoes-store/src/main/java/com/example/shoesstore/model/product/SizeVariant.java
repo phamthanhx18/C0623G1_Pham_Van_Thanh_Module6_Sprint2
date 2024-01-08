@@ -1,5 +1,6 @@
 package com.example.shoesstore.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class SizeVariant {
     @ManyToOne(targetEntity = Size.class)
     private Size size;
     @ManyToOne(targetEntity = ProductVariant.class)
+    @JsonBackReference
     private ProductVariant productVariant;
 }

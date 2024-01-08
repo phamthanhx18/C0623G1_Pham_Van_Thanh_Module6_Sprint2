@@ -4,6 +4,9 @@ import Footer from "../../components/Footer/Footer";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import ProductImageGallery from "./ProductImageGallery";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/middlewares/CartMiddleware";
+import {toast} from "react-toastify";
 function ProductDetail() {
     const {id} = useParams();
     const [product, setProduct] = useState({});
@@ -11,6 +14,8 @@ function ProductDetail() {
     const [selectedSize, setSelectedSize] = useState(null);
     const [sizes, setSizes] = useState([]);
     const [selectedVariantImages, setSelectedVariantImages] = useState([]);
+    const [quantity, setQuantity] = useState(1); // Giả sử mặc định là 1
+    const dispatch = useDispatch();
     useEffect(() => {
         if (product.productVariants && product.productVariants.length > 0) {
             handleVariantSelect(product.productVariants[0].id); // Chọn biến thể đầu tiên mặc định
@@ -51,6 +56,23 @@ function ProductDetail() {
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
     };
+
+
+    function handleAddToCart() {
+        const item = {
+            nameProduct: product.productName,
+            variant: product.productVariants.find(v => v.id === selectedVariant),
+            size_variant: selectedSize,
+            quantity: quantity
+        };
+        dispatch(addToCart(item));
+        toast.success("Thêm vào giỏ hàng thành công !")
+    }
+
+    const handleQuantityChange = (event) => {
+        setQuantity(Math.max(1, parseInt(event.target.value))); // Đảm bảo số lượng luôn >= 1
+    };
+
     return (
         <>
             <Header/>
@@ -108,7 +130,20 @@ function ProductDetail() {
                                 </div>
                             </div>
                         )}
-                        <button disabled={selectedVariant === null || selectedSize === null} className="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <div className="quantity mb-3">
+                            <div className="label mb-2">Số lượng</div>
+                            <div className="quantity-options">
+                                <input
+                                    type="number"
+                                    value={quantity}
+                                    onChange={handleQuantityChange}
+                                    min="1"
+                                    max="10"
+                                    className="quantity-input"
+                                />
+                            </div>
+                        </div>
+                        <button disabled={selectedVariant === null || selectedSize === null} className="btn btn-primary" onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
                     </div>
                 </div>
                 <div className="col-lg-12">

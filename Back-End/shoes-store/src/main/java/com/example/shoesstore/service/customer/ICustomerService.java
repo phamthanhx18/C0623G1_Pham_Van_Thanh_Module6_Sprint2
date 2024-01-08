@@ -1,4 +1,4 @@
-package com.example.shoesstore.service;
+package com.example.shoesstore.service.customer;
 
 import com.example.shoesstore.model.account.Customer;
 import org.springframework.data.domain.Page;
@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ICustomerService {
     Page<Customer> getAllCustomer(Pageable pageable);
+    void save(Customer customer);
 }

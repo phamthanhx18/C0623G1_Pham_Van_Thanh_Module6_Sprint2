@@ -104,6 +104,7 @@ public class WebSecurityConfig {
                                         "/api/size",
                                         "/api/color",
                                         "/api/product",
+                                        "/api/order",
                                         "/api/product/all",
                                         "/api/product/{id}",
                                         "/api/product/filter",
@@ -112,6 +113,15 @@ public class WebSecurityConfig {
                                         "/api/customer"
                                         ).permitAll()
                                 .requestMatchers("/api/product/add").hasRole("MANAGER")
+                                .requestMatchers("/api/category/all").hasRole("MANAGER")
+                                .requestMatchers("/api/category/add").hasRole("MANAGER")
+                                .requestMatchers("/api/category/{id}").hasRole("MANAGER")
+                                .requestMatchers("/api/color/all").hasRole("MANAGER")
+                                .requestMatchers("/api/color/add").hasRole("MANAGER")
+                                .requestMatchers("/api/color/{id}").hasRole("MANAGER")
+                                .requestMatchers("/api/size/all").hasRole("MANAGER")
+                                .requestMatchers("/api/order/all**").hasRole("MANAGER")
+                                .requestMatchers("/api/user/**").hasRole("MANAGER")
                                 .requestMatchers("/api/check-auth").authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

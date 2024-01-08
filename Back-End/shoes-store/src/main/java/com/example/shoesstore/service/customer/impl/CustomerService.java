@@ -1,13 +1,12 @@
-package com.example.shoesstore.service;
+package com.example.shoesstore.service.customer.impl;
 
 import com.example.shoesstore.model.account.Customer;
 import com.example.shoesstore.repository.auth.ICustomerRepository;
+import com.example.shoesstore.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -16,5 +15,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public Page<Customer> getAllCustomer(Pageable pageable) {
         return customerRepository.findAll(pageable);
+    }
+
+    @Override
+    public void save(Customer customer) {
+        customerRepository.save(customer);
     }
 }

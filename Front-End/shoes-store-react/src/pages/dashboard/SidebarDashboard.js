@@ -26,6 +26,21 @@ const SidebarDashboard = () => {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink to="/dashboard/categories" className="nav-link">
+                        Quản lý danh mục
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/dashboard/colors" className="nav-link">
+                        Quản lý màu sắc
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/dashboard/sizes" className="nav-link">
+                        Quản lý kích cỡ
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to="/dashboard/orders" className="nav-link">
                         Quản lý đơn hàng
                     </NavLink>
@@ -36,7 +51,7 @@ const SidebarDashboard = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/dashboard/customer" className="nav-link">
+                    <NavLink to="/dashboard/user" className="nav-link">
                         Quản lý tài khoản
                     </NavLink>
                 </li>

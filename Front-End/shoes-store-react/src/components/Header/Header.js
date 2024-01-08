@@ -1,14 +1,17 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function Header() {
+    const cartItemsNumber = useSelector((store) => store.cart.items.length);
     return (
         <header>
             <div className="container">
-                <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <header
+                    className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
                     <div className="col-md-auto mb-2 mb-md-0">
                         <NavLink to="/"
-                           className="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                                 className="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                             <img src="/images/images2491017_1.jpg" alt="Logo website" width="200px"/>
                         </NavLink>
                     </div>
@@ -30,9 +33,10 @@ function Header() {
                         <a href="#">
                             <i className="fa-solid fa-heart"></i>
                         </a>
-                        <a href="#">
+                        <Link to="/cart">
                             <i className="fa-solid fa-cart-shopping"></i>
-                        </a>
+                            <span className="position-absolute translate-middle badge rounded-pill bg-danger"> {cartItemsNumber || 0}</span>
+                        </Link>
                         <Link to="/login">
                             <i className="fa-solid fa-circle-user"></i>
                         </Link>

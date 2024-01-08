@@ -4,6 +4,8 @@ import com.example.shoesstore.model.account.Account;
 import com.example.shoesstore.repository.auth.IAccountRepository;
 import com.example.shoesstore.service.auth.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -52,5 +54,10 @@ public class AccountService implements IAccountService {
     @Override
     public Account getAccountByEmail(String email) {
         return accountRepository.getAccountByEmail(email);
+    }
+
+    @Override
+    public Page<Account> getAllAccount(Pageable pageable) {
+        return accountRepository.findAll(pageable);
     }
 }

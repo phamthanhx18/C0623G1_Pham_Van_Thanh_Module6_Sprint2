@@ -54,17 +54,6 @@ function ShowProductRow({products}) {
                                             </div>
                                         </div>
                                     </Link>
-                                    <div className="product-actions">
-                                        <a href="#">
-                                            <i className="fa-solid fa-circle-info"></i>
-                                        </a>
-                                        <a href="#">
-                                            <i className="fa-solid fa-heart"></i>
-                                        </a>
-                                        <a href="#">
-                                            <i className="fa-solid fa-cart-shopping"></i>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         ))}

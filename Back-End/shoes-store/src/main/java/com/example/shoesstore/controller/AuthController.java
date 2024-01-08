@@ -31,14 +31,6 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    /**
-     * Handles user login requests.
-     *
-     * @return ResponseEntity containing the JWT response or map error messages.
-     * @author: ThanhPV
-     * @date: 12/12/2023
-     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Login login, HttpServletResponse response) {
         try {

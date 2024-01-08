@@ -30,4 +30,7 @@ public class ProductVariant {
     @OneToMany(mappedBy = "productVariant")
     @JsonManagedReference
     private Set<AlbumsVariant> albumsVariants;
+    @OneToMany(mappedBy = "productVariant")
+    @JsonManagedReference
+    private Set<SizeVariant> sizeVariants;
 }
