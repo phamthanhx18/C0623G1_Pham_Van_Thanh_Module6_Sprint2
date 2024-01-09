@@ -36,7 +36,7 @@ function DashboardColor() {
     };
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8080/api/category/${colorDelete.id}`, {withCredentials: true});
+            await axios.delete(`http://localhost:8080/api/color/${colorDelete.id}`, {withCredentials: true});
             toast.success("Xóa màu sắc thành công");
             closeModal();
             getAllColors();

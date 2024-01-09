@@ -5,6 +5,7 @@ import axios from "axios";
 import NewsHome from "../components/News/NewsHome";
 import CategoryList from "../components/Category/CategoryList";
 import ShowProductRow from "../components/Product/ShowProductRow";
+import Footer from "../components/Footer/Footer";
 
 
 function HomePage() {
@@ -29,7 +30,8 @@ function HomePage() {
             <Banner/>
             <CategoryList categories={categories}/>
             <ShowProductRow products={products}/>
-            <NewsHome/>
+            {/*<NewsHome/>*/}
+            <Footer/>
         </>
     );
 }

@@ -83,7 +83,7 @@ function ProductDetail() {
                     </div>
                     <div className="col-lg-6">
                         <h2>{product.productName}</h2>
-                        <p>{product.shortDescription}</p>
+                        <p dangerouslySetInnerHTML={{__html: product.shortDescription}}/>
                         <div className="price-product">
                             <span className="percent">{calculateDiscountPercentage(product.price,product.priceSale)} <i
                                 className="fa-solid fa-percent"></i></span>

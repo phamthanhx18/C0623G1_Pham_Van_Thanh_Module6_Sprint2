@@ -68,8 +68,6 @@ function DashboardProduct() {
                                           onClick={() => handleEdit(product)}>Biến thể</Link>
                                     <button className="btn btn-warning me-2" onClick={() => handleEdit(product)}>Sửa
                                     </button>
-                                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Xóa
-                                    </button>
                                 </td>
                             </tr>
                         ))}

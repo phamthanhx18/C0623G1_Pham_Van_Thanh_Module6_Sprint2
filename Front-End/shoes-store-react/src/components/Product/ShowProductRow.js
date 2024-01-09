@@ -40,7 +40,7 @@ function ShowProductRow({products}) {
                                         <div className="card-body">
                                             <p className="category">{item.category.name}</p>
                                             <h4>{item.productName}</h4>
-                                            <p className="description">{item.shortDescription}</p>
+                                            <p className="description" dangerouslySetInnerHTML={{__html: item.shortDescription}}/>
                                             <div className="image-preview-small">
                                                 {item.productVariants.map(element => (
                                                     <img key={element.id} src={element.avatar} width={"100%"}

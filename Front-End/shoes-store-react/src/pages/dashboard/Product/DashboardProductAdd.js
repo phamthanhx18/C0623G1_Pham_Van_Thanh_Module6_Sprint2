@@ -201,7 +201,7 @@ function DashboardProductAdd() {
                             </div>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="category" className="form-label">Giá sản phẩm</label>
+                            <label htmlFor="category" className="form-label">Danh mục</label>
                             <Field as="select" name="category" className="form-select"
                                    aria-label="Default select example">
                                 <option selected>Chọn danh mục</option>

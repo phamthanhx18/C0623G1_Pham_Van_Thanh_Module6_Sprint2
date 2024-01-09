@@ -38,7 +38,7 @@ function DashboardProductDetail() {
                 
                 <hr width={'100%'}/>
 
-                <p><Link className="btn btn-primary" to={"/dashboard/products/add"}><i
+                <p><Link className="btn btn-primary" to={`/dashboard/products/${id}/add`}><i
                     className="fa-solid fa-file-circle-plus"></i> Thêm biến thể sản phẩm mới
                 </Link>
                 </p>

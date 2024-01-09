@@ -25,6 +25,7 @@ import DashboardCategoryAdd from "./pages/dashboard/Product/Category/DashboardCa
 import DashboardCategoryEdit from "./pages/dashboard/Product/Category/DashboardCategoryEdit";
 import DashboardColorAdd from "./pages/dashboard/Product/Color/DashboardColorAdd";
 import DashboardColorEdit from "./pages/dashboard/Product/Color/DashboardColorEdit";
+import DashboardVariantAdd from "./pages/dashboard/Product/DashboardVariantAdd";
 
 function App() {
     return (
@@ -47,6 +48,7 @@ function App() {
                     <Route path="/dashboard/categories/:categoryId" element={<PrivateRoute Component={DashboardCategoryEdit} />} />
                     <Route path="/dashboard/products/add" element={<PrivateRoute Component={DashboardProductAdd} />} />
                     <Route path="/dashboard/products/:id" element={<PrivateRoute Component={DashboardProductDetail} />} />
+                    <Route path="/dashboard/products/:id/add" element={<PrivateRoute Component={DashboardVariantAdd} />} />
                     <Route path="/dashboard/customer" element={<PrivateRoute Component={DashboardCustomer} />} />
                     <Route path="/dashboard/orders" element={<PrivateRoute Component={DashboardOrder} />} />
                     <Route path="/dashboard/user" element={<PrivateRoute Component={DashboardUser} />} />
