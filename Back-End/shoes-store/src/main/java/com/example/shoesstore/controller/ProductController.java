@@ -1,10 +1,10 @@
 package com.example.shoesstore.controller;
 
 import com.example.shoesstore.dto.Filter;
-import com.example.shoesstore.model.product.Product;
-import com.example.shoesstore.service.product.IProductService;
-import com.example.shoesstore.service.product.IProductVariantService;
-import com.example.shoesstore.service.product.ISizeService;
+import com.example.shoesstore.dto.VariantDTO;
+import com.example.shoesstore.model.product.*;
+import com.example.shoesstore.service.product.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,11 @@ public class ProductController {
     @Autowired
     private ISizeService sizeService;
     @Autowired
+    private ISizeVariantService sizeVariantService;
+    @Autowired
     private IProductVariantService productVariantService;
+    @Autowired
+    private IAlbumsVariantService albumsVariantService;
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProduct(){
@@ -76,5 +80,26 @@ public class ProductController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping("/{id}/add-variant")
+    public ResponseEntity<?> addVariant(@RequestBody VariantDTO variantDTO, @PathVariable Long id){
+        Product product = productService.getProductById(id);
+        ProductVariant productVariant = new ProductVariant();
+        BeanUtils.copyProperties(variantDTO,productVariant);
+        productVariant.setProduct(product);
+        productVariantService.save(productVariant);
+        for (Size size:variantDTO.getSize()) {
+            SizeVariant sizeVariant = new SizeVariant();
+            sizeVariant.setProductVariant(productVariant);
+            sizeVariant.setSize(size);
+            sizeVariantService.save(sizeVariant);
+        }
+        for (String image: variantDTO.getAlbumsVariant()) {
+            AlbumsVariant albumsVariant = new AlbumsVariant();
+            albumsVariant.setImage(image);
+            albumsVariant.setProductVariant(productVariant);
+            albumsVariantService.save(albumsVariant);
+        }
+        return ResponseEntity.ok("Thành công !");
     }
 }

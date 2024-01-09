@@ -6,4 +6,5 @@ import com.example.shoesstore.model.product.SizeVariant;
 
 public interface ISizeVariantService {
     SizeVariant findSizeVariant(Size size, ProductVariant productVariant);
+    void save(SizeVariant sizeVariant);
 }

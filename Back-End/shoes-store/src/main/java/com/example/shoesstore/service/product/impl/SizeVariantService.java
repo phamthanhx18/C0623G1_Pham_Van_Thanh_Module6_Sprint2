@@ -16,4 +16,10 @@ public class SizeVariantService implements ISizeVariantService {
     public SizeVariant findSizeVariant(Size size, ProductVariant productVariant) {
         return sizeVariantRepository.findBySizeAndProductVariant(size,productVariant);
     }
+
+    @Override
+    public void save(SizeVariant sizeVariant) {
+        sizeVariantRepository.save(sizeVariant);
+    }
+
 }

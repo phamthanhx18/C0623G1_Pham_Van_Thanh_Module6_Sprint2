@@ -113,6 +113,7 @@ public class WebSecurityConfig {
                                         "/api/customer"
                                         ).permitAll()
                                 .requestMatchers("/api/product/add").hasRole("MANAGER")
+                                .requestMatchers("/api/product/{id}/add-variant").hasRole("MANAGER")
                                 .requestMatchers("/api/category/all").hasRole("MANAGER")
                                 .requestMatchers("/api/category/add").hasRole("MANAGER")
                                 .requestMatchers("/api/category/{id}").hasRole("MANAGER")
@@ -122,7 +123,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/size/all").hasRole("MANAGER")
                                 .requestMatchers("/api/order/all**").hasRole("MANAGER")
                                 .requestMatchers("/api/user/**").hasRole("MANAGER")
-                                .requestMatchers("/api/check-auth").authenticated()
+                                .requestMatchers("/api/check-auth","/api/logout").authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)

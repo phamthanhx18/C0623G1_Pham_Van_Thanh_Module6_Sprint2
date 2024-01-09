@@ -50,4 +50,13 @@ public class AuthController {
     public ResponseEntity<?> test() {
             return new ResponseEntity<>("OKE", HttpStatus.OK);
     }
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        // Xóa cookie bằng cách đặt Max-Age thành 0
+        String cookieValue = "jwt=; HttpOnly; Secure; Path=/; Max-Age=0; SameSite=Strict";
+        response.setHeader("Set-Cookie", cookieValue);
+
+        return ResponseEntity.ok("Đăng xuất thành công");
+    }
+
 }
