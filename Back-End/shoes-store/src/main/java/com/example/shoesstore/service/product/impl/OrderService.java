@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService implements IOrderService {
     @Autowired
@@ -21,5 +23,10 @@ public class OrderService implements IOrderService {
     @Override
     public Page<Order> getAllOrder(Pageable pageable) {
         return orderRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Order> findOrdersBetweenDates(String startDate, String endDate) {
+        return orderRepository.findByOrderDateBetween(startDate,endDate);
     }
 }

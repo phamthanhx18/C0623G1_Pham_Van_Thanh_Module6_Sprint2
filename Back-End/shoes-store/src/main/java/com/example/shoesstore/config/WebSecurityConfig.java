@@ -122,6 +122,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/color/{id}").hasRole("MANAGER")
                                 .requestMatchers("/api/size/all").hasRole("MANAGER")
                                 .requestMatchers("/api/order/all**").hasRole("MANAGER")
+                                .requestMatchers("/api/order/revenue").hasRole("MANAGER")
                                 .requestMatchers("/api/user/**").hasRole("MANAGER")
                                 .requestMatchers("/api/check-auth","/api/logout").authenticated()
                 )

@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/order")
 @RestController
 public class OrderController {
@@ -63,5 +65,10 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(orderPage,HttpStatus.OK);
+    }
+    @GetMapping("/revenue")
+    public ResponseEntity<List<Order>> getOrdersBetweenDates(@RequestParam("start") String startDate, @RequestParam("end") String endDate) {
+        List<Order> orders = orderService.findOrdersBetweenDates(startDate, endDate);
+        return ResponseEntity.ok(orders);
     }
 }
