@@ -11,7 +11,7 @@ function SidebarFilter({ onFilterChange }) {
     });
 
     const [filter, setFilter] = useState({
-        categories: [],
+        categories: "",
         color: [],
         size: [],
         priceFilterMin: 0,
@@ -78,18 +78,13 @@ function SidebarFilter({ onFilterChange }) {
     }, [filter]);
 
     const handleCategoryChange = (selectedItem) => {
-        const updatedCategories = categories.map(item =>
-            item.id === selectedItem.id ? { ...item, isChecked: !item.isChecked } : item
-        );
-        setCategories(updatedCategories);
-
-        const selectedCategories = updatedCategories
-            .filter(item => item.isChecked)
-            .map(item => item.id);
+        setCategories(categories.map(item =>
+            item.id === selectedItem.id ? { ...item, isChecked: true } : { ...item, isChecked: false }
+        ));
 
         setFilter(prevFilter => ({
             ...prevFilter,
-            categories: selectedCategories
+            categories: selectedItem.id
         }));
     };
     const handleColorChange = (selectedItem) => {
@@ -161,8 +156,16 @@ function SidebarFilter({ onFilterChange }) {
                 <div>
                     {categories.map(item => (
                         <div className="form-check" key={item.id}>
-                            <input className="form-check-input" type="checkbox" value={item.id} id={item.id} onChange={() => handleCategoryChange(item)}/>
-                            <label className="form-check-label" htmlFor={item.id}>
+                            <input
+                                className="form-check-input"
+                                type="radio" // Thay đổi ở đây
+                                name="category" // Thêm thuộc tính name để nhóm radio buttons
+                                value={item.id}
+                                id={`category-${item.id}`}
+                                checked={item.isChecked}
+                                onChange={() => handleCategoryChange(item)}
+                            />
+                            <label className="form-check-label" htmlFor={`category-${item.id}`}>
                                 {item.name}
                             </label>
                         </div>

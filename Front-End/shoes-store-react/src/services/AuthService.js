@@ -19,8 +19,8 @@ export const logout = async () => {
 
 export const checkAuthentication = async () => {
     try {
-        await axios.get("http://localhost:8080/api/check-auth", { withCredentials: true });
-        return true;
+        let res = await axios.get("http://localhost:8080/api/check-auth", { withCredentials: true });
+        return res.data;
     } catch (error) {
         throw error;
     }

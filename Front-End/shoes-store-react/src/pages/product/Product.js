@@ -13,10 +13,14 @@ function Product() {
         setProducts(res.data);
     };
     const formatCurrency = (money) => {
-        return money.toLocaleString('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-        });
+        if (typeof(money) == "number") {
+            return money.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+        } else {
+            return 0;
+        }
     }
     return (
         <>

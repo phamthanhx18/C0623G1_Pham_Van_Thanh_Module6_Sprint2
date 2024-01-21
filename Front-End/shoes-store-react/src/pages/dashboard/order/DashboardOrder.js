@@ -20,18 +20,18 @@ function DashboardOrder() {
     function handleEdit(customer) {
         
     }
-
-    function handleDelete(id) {
-        
-    }
     const handlePageChange = (newPage) => {
         setPage(newPage);
     };
     const formatCurrency = (money) => {
-        return money.toLocaleString('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-        });
+        if (typeof(money) == "number") {
+            return money.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+        } else {
+            return 0;
+        }
     }
     return (
         <Layout>
@@ -41,8 +41,6 @@ function DashboardOrder() {
                     Trang quản lý các đơn hàng
                 </p>
                 <hr width={'100%'}/>
-                {/*<p><Link className="btn btn-primary" to={"/dashboard/products/add"}><i*/}
-                {/*    className="fa-solid fa-file-circle-plus"></i> Thêm khách hàng mới</Link></p>*/}
                 <table className="table">
                     <thead>
                     <tr>
@@ -65,7 +63,7 @@ function DashboardOrder() {
                             <td>{item.orderDate}</td>
                             <td>{formatCurrency(item.totalOrder)}</td>
                             <td>
-                                <button className="btn btn-warning me-2" onClick={() => handleEdit(item)}>Xem chi tiết</button>
+                                <Link to={`/dashboard/orders/${item.id}`} className="btn btn-warning me-2">Xem chi tiết</Link>
                             </td>
                         </tr>
                     ))}
