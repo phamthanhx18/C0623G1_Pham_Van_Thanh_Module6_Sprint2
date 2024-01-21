@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Filter {
-    private List<Long> categories;
+    private Long categories;
     private List<Long> color;
     private List<Long> size;
     private Long priceFilterMin;

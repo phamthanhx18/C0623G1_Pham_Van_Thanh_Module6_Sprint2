@@ -12,7 +12,7 @@ public interface IProductService {
     Page<Product> getAllProduct(Pageable pageable);
     Product getProductById(Long id);
     Double findMaxPrice();
-    List<Product> filterProducts(List<Long> categories,
+    List<Product> filterProducts(Long categories,
                                  List<Long> colors,
                                  List<Long> sizes,
                                  Long minPrice,

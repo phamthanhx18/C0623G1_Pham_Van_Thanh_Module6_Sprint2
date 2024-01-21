@@ -10,16 +10,16 @@ import java.util.List;
 public interface IProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT MAX(p.price) FROM Product p")
     Double findMaxPrice();
-    @Query(value = "SELECT DISTINCT p.* FROM products p " +
+    @Query(value = "SELECT p.* FROM products p " +
             "LEFT JOIN product_variants pv ON p.id = pv.product_id " +
             "LEFT JOIN size_variant sv ON pv.id = sv.product_variant_id WHERE " +
-            "(p.category_id IN :categories OR :categories IS NULL) AND " +
+            "(p.category_id = :categories OR :categories IS NULL) AND " +
             "(pv.color_id IN :colors OR :colors IS NULL) AND " +
             "(sv.size_id IN :sizes OR :sizes IS NULL) AND " +
             "(p.price >= :minPrice OR :minPrice IS NULL) AND " +
             "(p.price <= :maxPrice OR :maxPrice IS NULL)",
             nativeQuery = true)
-    List<Product> filterProducts(@Param("categories") List<Long> categories,
+    List<Product> filterProducts(@Param("categories") Long categories,
                                  @Param("colors") List<Long> colors,
                                  @Param("sizes") List<Long> sizes,
                                  @Param("minPrice") Long minPrice,

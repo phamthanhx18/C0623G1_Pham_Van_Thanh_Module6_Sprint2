@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setCartItems} from "../../redux/middlewares/CartMiddleware";
 
 function Header() {
     const cartItemsNumber = useSelector((store) => store.cart.items.length);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setCartItems())
+    }, []);
+
     return (
         <header>
             <div className="container">

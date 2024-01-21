@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import ProductImageGallery from "./ProductImageGallery";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/middlewares/CartMiddleware";
 import {toast} from "react-toastify";
+import {checkAuthentication} from "../../services/AuthService";
 function ProductDetail() {
+    const location = useLocation(); // React Hook
     const {id} = useParams();
     const [product, setProduct] = useState({});
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -16,6 +18,7 @@ function ProductDetail() {
     const [selectedVariantImages, setSelectedVariantImages] = useState([]);
     const [quantity, setQuantity] = useState(1); // Giả sử mặc định là 1
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         if (product.productVariants && product.productVariants.length > 0) {
             handleVariantSelect(product.productVariants[0].id); // Chọn biến thể đầu tiên mặc định
@@ -58,15 +61,21 @@ function ProductDetail() {
     };
 
 
-    function handleAddToCart() {
-        const item = {
-            nameProduct: product.productName,
-            variant: product.productVariants.find(v => v.id === selectedVariant),
-            size_variant: selectedSize,
-            quantity: quantity
-        };
-        dispatch(addToCart(item));
-        toast.success("Thêm vào giỏ hàng thành công !")
+    const handleAddToCart = async () => {
+        try {
+            await checkAuthentication();
+            const item = {
+                productVariant: product.productVariants.find(v => v.id === selectedVariant),
+                sizeVariant: selectedSize,
+                quantity: quantity
+            };
+            await dispatch(addToCart(item));
+            toast.success("Thêm vào giỏ hàng thành công !")
+        } catch (e) {
+            sessionStorage.setItem('preLoginPath', location.pathname);
+            toast.error("Vui lòng đăng nhập để mua hàng")
+            navigate("/login")
+        }
     }
 
     const handleQuantityChange = (event) => {
@@ -79,13 +88,13 @@ function ProductDetail() {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6">
-                        <ProductImageGallery images={selectedVariantImages} />
+                        <ProductImageGallery images={selectedVariantImages}/>
                     </div>
                     <div className="col-lg-6">
                         <h2>{product.productName}</h2>
                         <p dangerouslySetInnerHTML={{__html: product.shortDescription}}/>
                         <div className="price-product">
-                            <span className="percent">{calculateDiscountPercentage(product.price,product.priceSale)} <i
+                            <span className="percent">{calculateDiscountPercentage(product.price, product.priceSale)} <i
                                 className="fa-solid fa-percent"></i></span>
                             <span className="price-sale">{formatCurrency(product.priceSale)}</span>
                         </div>
@@ -124,7 +133,7 @@ function ProductDetail() {
                                                 cursor: 'pointer'
                                             }}
                                         >
-                                            {size.sizeName}
+                                            {size.size.sizeName}
                                         </button>
                                     ))}
                                 </div>
@@ -143,7 +152,9 @@ function ProductDetail() {
                                 />
                             </div>
                         </div>
-                        <button disabled={selectedVariant === null || selectedSize === null} className="btn btn-primary" onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
+                        <button disabled={selectedVariant === null || selectedSize === null} className="btn btn-primary"
+                                onClick={handleAddToCart}>Thêm vào giỏ hàng
+                        </button>
                     </div>
                 </div>
                 <div className="col-lg-12">

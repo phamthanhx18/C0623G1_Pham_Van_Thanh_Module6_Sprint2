@@ -60,4 +60,9 @@ public class AccountService implements IAccountService {
     public Page<Account> getAllAccount(Pageable pageable) {
         return accountRepository.findAll(pageable);
     }
+
+    @Override
+    public void save(Account account) {
+        accountRepository.save(account);
+    }
 }

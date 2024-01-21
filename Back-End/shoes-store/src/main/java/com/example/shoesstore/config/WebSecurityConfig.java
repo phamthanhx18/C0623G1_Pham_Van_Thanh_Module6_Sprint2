@@ -100,11 +100,11 @@ public class WebSecurityConfig {
 //                        Trang không cần đăng nhập
                                 .requestMatchers(
                                         "/api/login",
+                                        "/api/sign-up",
                                         "/api/category",
                                         "/api/size",
                                         "/api/color",
                                         "/api/product",
-                                        "/api/order",
                                         "/api/product/all",
                                         "/api/product/{id}",
                                         "/api/product/filter",
@@ -124,7 +124,14 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/order/all**").hasRole("MANAGER")
                                 .requestMatchers("/api/order/revenue").hasRole("MANAGER")
                                 .requestMatchers("/api/user/**").hasRole("MANAGER")
-                                .requestMatchers("/api/check-auth","/api/logout").authenticated()
+                                .requestMatchers("/api/check-auth",
+                                        "/api/logout",
+                                        "/api/cart/**",
+                                        "/api/order",
+                                        "/api/order/get-order/**",
+                                        "/api/customer/info",
+                                        "/api/customer/save"
+                                ).authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)

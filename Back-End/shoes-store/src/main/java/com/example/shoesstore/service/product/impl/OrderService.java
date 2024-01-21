@@ -1,5 +1,6 @@
 package com.example.shoesstore.service.product.impl;
 
+import com.example.shoesstore.model.account.Account;
 import com.example.shoesstore.model.order.Order;
 import com.example.shoesstore.repository.product.IOrderRepository;
 import com.example.shoesstore.service.product.IOrderService;
@@ -28,5 +29,15 @@ public class OrderService implements IOrderService {
     @Override
     public List<Order> findOrdersBetweenDates(String startDate, String endDate) {
         return orderRepository.findByOrderDateBetween(startDate,endDate);
+    }
+
+    @Override
+    public Page<Order> getOrderByAccount(Account account,Pageable pageable) {
+        return orderRepository.findOrderByCustomer_Account(account,pageable);
+    }
+
+    @Override
+    public Order getOrderById(Long idOrder) {
+        return orderRepository.findById(idOrder).get();
     }
 }

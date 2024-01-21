@@ -36,7 +36,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> filterProducts(List<Long> categories, List<Long> colors, List<Long> sizes, Long minPrice, Long maxPrice) {
+    public List<Product> filterProducts(Long categories, List<Long> colors, List<Long> sizes, Long minPrice, Long maxPrice) {
         return productRepository.filterProducts(categories,colors,sizes,minPrice,maxPrice);
     }
 

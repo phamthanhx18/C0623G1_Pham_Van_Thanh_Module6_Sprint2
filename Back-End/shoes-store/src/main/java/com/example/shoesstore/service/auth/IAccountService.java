@@ -41,4 +41,5 @@ public interface IAccountService {
      */
     Account getAccountByEmail(String email);
     Page<Account> getAllAccount(Pageable pageable);
+    void save(Account account);
 }

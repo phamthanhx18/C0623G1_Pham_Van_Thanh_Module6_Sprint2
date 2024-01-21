@@ -8,6 +8,8 @@ import com.example.shoesstore.service.product.ISizeVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SizeVariantService implements ISizeVariantService {
     @Autowired
@@ -20,6 +22,11 @@ public class SizeVariantService implements ISizeVariantService {
     @Override
     public void save(SizeVariant sizeVariant) {
         sizeVariantRepository.save(sizeVariant);
+    }
+
+    @Override
+    public List<SizeVariant> findSizesByProductVariantId(Long idVariant) {
+        return sizeVariantRepository.findByProductVariant_Id(idVariant);
     }
 
 }

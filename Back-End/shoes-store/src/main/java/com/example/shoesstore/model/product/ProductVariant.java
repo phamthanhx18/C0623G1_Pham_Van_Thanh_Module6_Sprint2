@@ -33,4 +33,7 @@ public class ProductVariant {
     @OneToMany(mappedBy = "productVariant")
     @JsonManagedReference
     private Set<SizeVariant> sizeVariants;
+    public String getProductName() {
+        return product != null ? product.getProductName() : null;
+    }
 }

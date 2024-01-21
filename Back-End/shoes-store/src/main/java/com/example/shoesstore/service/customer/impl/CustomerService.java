@@ -1,5 +1,6 @@
 package com.example.shoesstore.service.customer.impl;
 
+import com.example.shoesstore.model.account.Account;
 import com.example.shoesstore.model.account.Customer;
 import com.example.shoesstore.repository.auth.ICustomerRepository;
 import com.example.shoesstore.service.customer.ICustomerService;
@@ -20,5 +21,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public void save(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer getCustomerByAccount(Account account) {
+        return customerRepository.getCustomerByAccountId(account.getId());
     }
 }

@@ -1,11 +1,16 @@
 package com.example.shoesstore.controller;
 
 import com.example.shoesstore.dto.Login;
+import com.example.shoesstore.dto.SignUpDTO;
 import com.example.shoesstore.model.account.Account;
+import com.example.shoesstore.model.account.Customer;
 import com.example.shoesstore.model.account.MyUserDetail;
+import com.example.shoesstore.model.account.Role;
 import com.example.shoesstore.security.jwt.JwtUtils;
 import com.example.shoesstore.service.auth.IAccountService;
+import com.example.shoesstore.service.auth.IRoleService;
 import com.example.shoesstore.service.auth.impl.MyUserDetailService;
+import com.example.shoesstore.service.customer.ICustomerService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,12 +27,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @RequestMapping("/api")
 @RestController
 public class AuthController {
     @Autowired
     private JwtUtils jwtProvider;
+    @Autowired
+    private IRoleService roleService;
+    @Autowired
+    private IAccountService accountService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ICustomerService customerService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -46,9 +62,28 @@ public class AuthController {
             return new ResponseEntity<>("Thông tin đăng nhập không chính xác.", HttpStatus.UNAUTHORIZED);
         }
     }
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> signUp(@RequestBody SignUpDTO signUpDTO) {
+        Account account = new Account();
+        account.setEmail(signUpDTO.getEmail());
+        account.setUsername(signUpDTO.getUsername());
+        account.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
+
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(roleService.findRolebyName("ROLE_CUSTOMER"));
+        account.setRoles(roleSet);
+        accountService.save(account);
+
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(signUpDTO,customer);
+        customer.setAccount(account);
+        customerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @GetMapping("/check-auth")
     public ResponseEntity<?> test() {
-            return new ResponseEntity<>("OKE", HttpStatus.OK);
+        Account account = getAuthenticatedAccount();
+        return new ResponseEntity<>(account.getRoles(), HttpStatus.OK);
     }
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
@@ -58,5 +93,13 @@ public class AuthController {
 
         return ResponseEntity.ok("Đăng xuất thành công");
     }
-
+    private Account getAuthenticatedAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        MyUserDetail userDetails = (MyUserDetail) authentication.getPrincipal();
+        Account account = userDetails.getAccount();
+        return account;
+    }
 }

@@ -59,7 +59,7 @@ public class ProductController {
 
     @GetMapping("/get-size/{idVariant}")
     public ResponseEntity<?> getProductByIdVariant(@PathVariable Long idVariant){
-        return ResponseEntity.ok(sizeService.findSizesByProductVariantId(idVariant));
+        return ResponseEntity.ok(sizeVariantService.findSizesByProductVariantId(idVariant));
     }
     @GetMapping("/get-price-filter")
     public ResponseEntity<?> getPriceMaxAndMin(){

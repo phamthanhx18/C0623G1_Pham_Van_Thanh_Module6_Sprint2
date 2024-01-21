@@ -27,23 +27,27 @@ const CheckoutForm = () => {
         paymentMethod: ""
     };
     const formatCurrency = (money) => {
-        return money.toLocaleString('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-        });
+        if (typeof(money) == "number") {
+            return money.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+        } else {
+            return 0;
+        }
     }
     const handleSubmitForm = async (values) => {
         const data = {
             ...values,
             orderDetailDTO: cartItems,
             totalOrder: cartItems.reduce((total, item) => {
-                return total + item.quantity * item.variant.priceSale;
+                return total + item.quantity * item.productVariant.priceSale;
             }, 0),
             orderDate: new Date().toISOString().split('T')[0]
         }
         try {
-            await axios.post("http://localhost:8080/api/order",data);
-            dispatch(checkOutAll());
+            let res = dispatch(checkOutAll(data));
+            console.log(res);
             toast.success("Đặt hàng thành công !");
             navigate("/");
         } catch (e) {
@@ -66,7 +70,7 @@ const CheckoutForm = () => {
                 >
                     <Form>
                         <div className="row g-5">
-                            <div className="col-md-5 col-lg-4 order-md-last">
+                            <div className="col-md-6 col-lg-4 order-md-last">
                                 {cartItems.length === 0 ? (
                                     <p>Giỏ hàng trống</p>
                                 ) : (
@@ -74,27 +78,27 @@ const CheckoutForm = () => {
                                         <table className="table">
                                             <thead>
                                             <tr>
-                                                <th>Sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th colSpan={80}>Sản phẩm</th>
+                                                <th colSpan={20}>Số lượng</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {cartItems.map((item, index) => (
                                                 <tr key={index} className="cart-item">
-                                                    <td>
-                                                        <img src={item.variant.avatar} alt={item.productName}
-                                                             width={20}/> {item.nameProduct} - {item.variant.color.colorName} - {item.size_variant.sizeName}
+                                                    <td colSpan={80}>
+                                                        <img src={item.productVariant.avatar} alt={item.productVariant.productName}
+                                                             width={20}/> {item.productVariant.productName} - {item.productVariant.color.colorName} - {item.sizeVariant.size.sizeName}
                                                     </td>
-                                                    <td>{item.quantity}</td>
+                                                    <td colSpan={20}>{item.quantity}</td>
                                                 </tr>
                                             ))}
                                             </tbody>
                                             <tfoot>
                                             <tr>
-                                                <td colSpan={1}>Thành tiền</td>
-                                                <td className="total-money">
+                                                <td colSpan={20}>Thành tiền</td>
+                                                <td colSpan={80} className="total-money">
                                                     {formatCurrency(cartItems.reduce((total, item) => {
-                                                        return total + item.quantity * item.variant.priceSale;
+                                                        return total + item.quantity * item.productVariant.priceSale;
                                                     }, 0))}
                                                 </td>
                                             </tr>
@@ -130,7 +134,7 @@ const CheckoutForm = () => {
                                     Tiếp tục
                                 </button>
                             </div>
-                            <div className="col-md-7 col-lg-8">
+                            <div className="col-md-6 col-lg-8">
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Họ và tên</label>
                                     <Field name="name" type="text" className="form-control" id="name"/>

@@ -15,4 +15,6 @@ public interface IRoleService {
      */
     Optional<Role> findByName(String name);
     List<Role> findRole();
+
+    Role findRolebyName(String roleCustomer);
 }
